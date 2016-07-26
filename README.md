@@ -5,6 +5,9 @@ Repository for Autocomplete Textfield from API, Coredata as well Json response y
 Clone this repository and Add this code to your class but before that your will requried AUTOCOMPLETE FRAMEWORK and add to your project
 
 ```obj-c
+
+    #import "Private.h" 
+
     AutoCompletionUIKitDynamicsAnimation *animation = [[AutoCompletionUIKitDynamicsAnimation alloc] init];
     
     CoreDataDataSource *coreDataDataSource = [[CoreDataDataSource alloc] init];
@@ -20,3 +23,23 @@ Clone this repository and Add this code to your class but before that your will 
     apiDataSource.requestURL = @"YOUR CUSTOM URL";
     _apiTextField.suggestionsResultDataSource = apiDataSource;
     _apiTextField.suggestionsResultDelegate = self;
+
+
+    #pragma mark - Delegate
+
+   - (void)textField:(AutoCompletionTextField*)textField didSelectItem:(id)selectedItem
+  {
+    if ([textField isEqual:_coreDataTextField]) {
+        Items *item = selectedItem;
+        [textField setText:item.title];
+    }
+    else if ([textField isEqual:_jsonTextField] || [textField isEqual:_apiTextField]) {
+        JSONItem *item = selectedItem;
+        [textField setText:item.title];
+    }
+  }
+
+  - (void)placeholderTextField:(UITextField *)placeholderTextField didSelectItem:(id)selectedItem {
+    Items *item = selectedItem;
+    [placeholderTextField setText:item.title];
+  }
