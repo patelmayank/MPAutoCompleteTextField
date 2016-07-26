@@ -4,6 +4,9 @@ Repository for Autocomplete Textfield from API, Coredata as well Json response y
 # Usage 
 Clone this repository and Add this code to your class but before that your will requried AUTOCOMPLETE FRAMEWORK and add to your project
 
+[![Alt][screenshot1]]
+
+
 [screenshot1]: https://github.com/mpatelCAS/MPAutoCompleteTextField/blob/master/Simulator%20Screen%20Shot%20Jul%2026%2C%202016%2C%203.50.08%20PM.png
 
 ```obj-c
