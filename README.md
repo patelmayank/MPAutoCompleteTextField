@@ -10,7 +10,9 @@ Clone this repository and Add this code to your class but before that your will 
 
 ```obj-c
 
-    #import "Private.h" 
+    #import "Private.h"  
+    
+    // TODO : <AutoCompletionTextFieldDelegate> Add this delegate to your class 
 
     AutoCompletionUIKitDynamicsAnimation *animation = [[AutoCompletionUIKitDynamicsAnimation alloc] init];
     
