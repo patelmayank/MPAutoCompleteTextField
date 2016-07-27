@@ -7,6 +7,7 @@
 #import "GetJSONOperation.h"
 #import "RequestOperation.h"
 #import "JSONManager.h"
+#import "JSONItem.h"
 
 @implementation GetJSONOperation
 
@@ -21,7 +22,6 @@
         }];
 
         [[NSOperationQueue mainQueue] addOperation:downloadOperation];
-        
     }
     return self;
 }

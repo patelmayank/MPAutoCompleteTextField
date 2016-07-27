@@ -8,6 +8,7 @@
 #import "GetJSONOperation.h"
 #import "Constants.h"
 #import "NSString+URLEncoding.h"
+#import "APIRequestOperation.h"
 
 @interface RequestObject ()
 @property (nonatomic, strong) NSString* incompleteString;
@@ -21,6 +22,7 @@
 
 @property(strong,nonatomic) NSOperationQueue *fetchQueue;
 @property RequestObject *requestDataObject;
+@property APIRequestOperation *apiRequest;
 @end
 
 @implementation APIDataSource
@@ -42,13 +44,43 @@
 
 - (void)timeoutRequestWithRequestedObject:(RequestObject *)requestDataObject {
     
-   // NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/customsearch/v1?key=%@&q=%@&cx=%@",apiKey,requestDataObject.incompleteString, engineID];
+     if (_api_type == APICallTypeGET) {
+         [self timeoutRequestWithGetRequestedObject:requestDataObject];
+     }
+    
+     if (_api_type == APICallTypePOST) {
+        [self timeoutRequestWithPostRequestedObject:requestDataObject];
+     }
+}
+
+- (void)timeoutRequestWithGetRequestedObject:(RequestObject *)requestDataObject {
+    
+  // TODO : this url is optional
+  //  NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/customsearch/v1?key=%@&q=%@&cx=%@",apiKey,requestDataObject.incompleteString, engineID];
   
     NSURL *downloadURL = [NSURL URLWithString:_requestURL];
-    GetJSONOperation *operation = [[GetJSONOperation alloc] initWithDownloadURL:downloadURL
+    APIRequestOperation *operation = [[APIRequestOperation alloc] initWithDownloadURL:downloadURL
                                                             withCompletionBlock:requestDataObject.completionBlock];
+    operation.req_type = requestTypeGET;
+    operation.requestParams = _requestParams;
+    operation.manager = _manager;
     [_fetchQueue addOperation:operation];
 }
+
+- (void)timeoutRequestWithPostRequestedObject:(RequestObject *)requestDataObject {
+    
+    // TODO : this url is optional
+    //  NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/customsearch/v1?key=%@&q=%@&cx=%@",apiKey,requestDataObject.incompleteString, engineID];
+    
+    NSURL *downloadURL = [NSURL URLWithString:_requestURL];
+    APIRequestOperation *operation = [[APIRequestOperation alloc] initWithDownloadURL:downloadURL
+                                                                  withCompletionBlock:requestDataObject.completionBlock];
+    operation.req_type = requestTypePOST;
+    operation.requestParams = _requestParams;
+    operation.manager = _manager;
+    [_fetchQueue addOperation:operation];
+}
+
 
 @end
 

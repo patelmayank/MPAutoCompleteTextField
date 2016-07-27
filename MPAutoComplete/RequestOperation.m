@@ -38,6 +38,7 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:self.url];
     
     self.response = nil;
+    
     self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
     
     NSRunLoop *runLoop = [NSRunLoop currentRunLoop];

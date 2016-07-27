@@ -6,6 +6,7 @@
 
 @import AutoCompletion;
 #import <Foundation/Foundation.h>
+#import "AFHTTPSessionManager.h"
 
 @interface GetJSONOperation : NSOperation
 
